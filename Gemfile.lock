@@ -1,0 +1,94 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    async (2.14.2)
+      console (~> 1.25, >= 1.25.2)
+      fiber-annotation
+      io-event (~> 1.6, >= 1.6.5)
+    async-http (0.69.0)
+      async (>= 2.10.2)
+      async-pool (~> 0.7)
+      io-endpoint (~> 0.11)
+      io-stream (~> 0.4)
+      protocol-http (~> 0.26)
+      protocol-http1 (~> 0.19)
+      protocol-http2 (~> 0.18)
+      traces (>= 0.10)
+    async-http-faraday (0.14.0)
+      async-http (~> 0.42)
+      faraday
+    async-pool (0.7.0)
+      async (>= 1.25)
+    base64 (0.2.0)
+    console (1.27.0)
+      fiber-annotation
+      fiber-local (~> 1.1)
+      json
+    domain_name (0.6.20240107)
+    faraday (2.10.0)
+      faraday-net_http (>= 2.0, < 3.2)
+      logger
+    faraday-cookie_jar (0.0.7)
+      faraday (>= 0.8.0)
+      http-cookie (~> 1.0.0)
+    faraday-net_http (3.1.1)
+      net-http
+    fiber-annotation (0.2.0)
+    fiber-local (1.1.0)
+      fiber-storage
+    fiber-storage (0.1.2)
+    http-cookie (1.0.6)
+      domain_name (~> 0.5)
+    io-endpoint (0.13.0)
+    io-event (1.6.5)
+    io-stream (0.4.0)
+    json (2.7.2)
+    logger (1.6.0)
+    mustermann (3.0.0)
+      ruby2_keywords (~> 0.0.1)
+    net-http (0.4.1)
+      uri
+    nokogiri (1.16.6-x86_64-linux)
+      racc (~> 1.4)
+    protocol-hpack (1.4.3)
+    protocol-http (0.28.1)
+    protocol-http1 (0.19.1)
+      protocol-http (~> 0.22)
+    protocol-http2 (0.18.0)
+      protocol-hpack (~> 1.4)
+      protocol-http (~> 0.18)
+    racc (1.8.0)
+    rack (3.1.7)
+    rack-protection (4.0.0)
+      base64 (>= 0.1.0)
+      rack (>= 3.0.0, < 4)
+    rack-session (2.0.0)
+      rack (>= 3.0.0)
+    rackup (2.1.0)
+      rack (>= 3)
+      webrick (~> 1.8)
+    ruby2_keywords (0.0.5)
+    sinatra (4.0.0)
+      mustermann (~> 3.0)
+      rack (>= 3.0.0, < 4)
+      rack-protection (= 4.0.0)
+      rack-session (>= 2.0.0, < 3)
+      tilt (~> 2.0)
+    tilt (2.4.0)
+    traces (0.11.1)
+    uri (0.13.0)
+    webrick (1.8.1)
+
+PLATFORMS
+  x86_64-linux
+
+DEPENDENCIES
+  async-http-faraday (~> 0.14)
+  faraday (~> 2.10)
+  faraday-cookie_jar (~> 0.0.7)
+  nokogiri (~> 1.16)
+  rackup (~> 2.1)
+  sinatra (~> 4.0)
+
+BUNDLED WITH
+   2.3.7

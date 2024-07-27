@@ -1,0 +1,34 @@
+# Existing rules...
+/bin/
+/build/
+/.bundle/
+/vendor/bundle
+/coverage/
+/doc/
+
+# Keep the docs directory, but ignore specific files if needed
+# /docs/*
+# !/docs/.keep
+# !/docs/your_specific_file.pdf
+
+.DS_Store
+*.dwarf
+/pkg/
+.sass-cache/
+# Ignore vim swap files
+.*.s[a-w][a-z]
+.s[a-w][a-z]
+/.yardoc
+/_yardoc/
+/pkg/
+/spec/reports/
+/tmp/
+
+# Ignore Ruby LSP directory
+/.ruby-lsp/
+
+# Ignore Ruby version and gemset files
+# Ignore possible Ruby version specification for this project (posibly there, possibly this name)
+/.ruby-version
+/.ruby-gemset
+/.rvmrc
