@@ -94,11 +94,29 @@ Saturday November 17, 2018
 
 ## Project Structure
 
-- `lib/`: Contains the current implementation
-- `archive/concurrent_implementations/`: Houses previous versions using different concurrency approaches:
-  - `_app_Async_do.rb`: Implementation using `async/http/internet`
-  - `_app_async_def.rb`: Version using `async/await` with syntactic sugar
-- `lib/local_server.rb`: a sinatra server used when myasync --local is specified
+- `lib/`: Contains the main code using the Faraday HTTP gem - a more adaptable but involved implementation.
+    - `application.rb` (symlink): Points to one of the two async implementations below.
+    - `_app_Async_do.rb`: Implementation using `Async do ... end` blocks within a method.
+    - `_app_async_def.rb`: Version using `async/await` with syntactic sugar.
+- `archive/`: Contains earlier code using the `async/http/internet` gem.
+    - A similar setup with two different async idioms is present there as well.
+- `use_async_method_or_block.sh`: Script to switch which async implementation is active by updating the `application.rb` symlink.
+- `lib/local_server.rb`: Sinatra server used when `myasync --local` is specified.
+
+> **Note:** The active async implementation is controlled by the `application.rb` symlink. Use the provided script to switch between versions as needed.
+
+## Switching Async Implementations
+
+To choose which async implementation is active, use:
+
+```
+
+./use_async_method_or_block.sh async_def    \# Use async/await version
+./use_async_method_or_block.sh Async_do     \# Use Async do ... end version
+
+```
+
+Running the script with no arguments reports which version is currently active.
 
 ## Development
 
