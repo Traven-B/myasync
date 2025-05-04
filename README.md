@@ -118,6 +118,9 @@ To choose which async implementation is active, use:
 
 Running the script with no arguments reports which version is currently active.
 
+> **Note on Git and symlinks:**
+> Git tracks the symlink’s name and target path (not the contents of the target file). If you switch the symlink to point to a different file, `git status` may show it as modified. You only need to `git add` and commit if you want to record the new target in version control.
+
 ## Development
 
 For more information on how to customize this code for your use, please refer to our sister project in the Ruby-like language Crystal.
