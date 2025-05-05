@@ -48,7 +48,7 @@ library websites and customize the scraping logic for each.
    Use `bundle exec` to ensure the correct gem versions are used:
 
    ```bash
-   bundle exec ruby app/mymodest --mock
+   bundle exec app/mymodest --mock
    ```
 
 ## Quick Start
@@ -230,7 +230,7 @@ MODULE_NAMES = [Spingfield, Shelbyville]
 4. Test immediately:
 
 ```bash
-bundle exec ruby app/mymodest --mock  # Uses your fixtures
+bundle exec app/mymodest --mock  # Uses your fixtures
 bundle exec lib/local_server.rb       # Serves them at localhost:3000/seattle/...
 ```
 
