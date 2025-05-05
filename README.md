@@ -8,7 +8,6 @@ The program uses Ruby's concurrency support to handle multiple HTTP requests
 simultaneously. It is modular, allowing you to define modules for different
 library websites and customize the scraping logic for each.
 
-
 ## Setting Up the Project
 
 1. **Clone the Repository**:
@@ -51,6 +50,52 @@ library websites and customize the scraping logic for each.
    ```bash
    bundle exec ruby app/mymodest --mock
    ```
+
+## Quick Start
+
+When you first run the program, use the `--mock` option.
+This lets you see example output immediately, even if you haven’t set up credentials,
+URLs, and scraping routines.
+
+The following will work also:
+
+```sh
+myasync --help
+myasync --mock                 # See simulated output right away
+myasync --mock --trace         # With trace/debug output
+myasync --mock --sleep-range 2 --trace
+myasync --mock --sleep-range 2,2.2 --trace
+```
+
+### Fake the Internet: Use a Local Server
+
+Instead of faking internet requests, you can run against a local server:
+
+```sh
+$ bundle exec app/myasync --local
+Failed to open TCP connection to localhost:3000
+
+Start a server on localhost. Run:
+bundle exec lib/local_server.rb
+
+```
+
+Start a server on localhost in a separate terminal:
+
+```sh
+$ bundle exec lib/local_server.rb
+== Sinatra (v4.1.1) has taken the stage on 3000 for development with backup from WEBrick
+(Ctrl-C to exit)
+```
+
+Then try your command again:
+
+```sh
+$ bundle exec app/myasync --local
+```
+
+The --local option is for advanced development and concurrency testing, but
+like --mock, it also works out of the box.
 
 ## Usage
 
@@ -103,7 +148,8 @@ Saturday November 17, 2018
 - `use_async_method_or_block.sh`: Script to switch which async implementation is active by updating the `application.rb` symlink.
 - `lib/local_server.rb`: Sinatra server used when `myasync --local` is specified.
 
-> **Note:** The active async implementation is controlled by the `application.rb` symlink. Use the provided script to switch between versions as needed.
+**Note:** The active async implementation is controlled by the `application.rb`
+symlink. Use the provided script to switch between versions as needed.
 
 ## Switching Async Implementations
 
@@ -118,14 +164,81 @@ To choose which async implementation is active, use:
 
 Running the script with no arguments reports which version is currently active.
 
-> **Note on Git and symlinks:**
-> Git tracks the symlink’s name and target path (not the contents of the target file). If you switch the symlink to point to a different file, `git status` may show it as modified. You only need to `git add` and commit if you want to record the new target in version control.
+**Note on Git and symlinks:**  
+Git tracks the symlink’s name and target path (not the contents of the target file). If you switch the symlink to point to a different file, `git status` may show it as modified. You only need to `git add` and commit if you want to record the new target in version control.
 
 ## Development
 
-For more information on how to customize this code for your use, please refer to our sister project in the Ruby-like language Crystal.
 
-Please refer to the following documents from the Crystal project for detailed information:
+### Modular Design
+
+**myasync** is designed to support multiple library websites through a
+module system. Adding a new library only requires:
+
+1. **Defining a module** with parsing logic and configuration.
+2. **Adding fixture HTML files** for mock/local modes.
+3. **No changes to the core CLI code** are needed.
+
+### Adding a New Library Module
+
+1. **Create a module** in `lib/` (e.g., `springfield.rb`):
+
+```ruby
+
+module Springfield
+
+  BASE_URL_ACTUAL = "https://springfield.lib.example.com"
+  BASE_URL_LOCAL = "http://localhost:3000/springfield"
+  BASE_URL = Local.local? ? BASE_URL_LOCAL : BASE_URL_ACTUAL
+
+  def self.lib_data
+    {
+      post_url: "#{BASE_URL_LOCAL}login",
+      checked_out_url:"#{BASE_URL}/checkedout",
+      checked_out_fixture: "springfield_checked_out.html",  # Your fixture file name
+      # ... other config
+    }
+  end
+
+  def self.parse_checkedout_page(page)
+    # Custom parsing logic for this library
+  end
+end
+```
+
+2. **Add the module** to `MODULE_NAMES` in `lib/module_names.rb`:
+
+```ruby
+MODULE_NAMES = [Spingfield, Shelbyville]
+```
+
+3. **Add fixture HTML files** to `mock_data/html_pages/` (e.g., `springfield_checked_out.html`).
+
+### How Discovery Works
+
+- The **`--mock` option** automatically uses your fixture files without HTTP requests.
+- The **`--local` server** dynamically maps URLs from all modules in `MODULE_NAMES` to serve their fixtures.
+- No manual URL configuration is needed - the code handles it via `lib_data` in each module.
+
+---
+
+### Example Workflow for a New Library
+
+1. Define `lib/libraries/seattle.rb` with parsing logic.
+2. Add `Seattle` to `MODULE_NAMES`.
+3. Add `seattle_checked_out.html`, `seattle_on_hold.html` to `mock_data/html_pages/`.
+4. Test immediately:
+
+```bash
+bundle exec ruby app/mymodest --mock  # Uses your fixtures
+bundle exec lib/local_server.rb       # Serves them at localhost:3000/seattle/...
+```
+
+For more information on how to customize this code for your use, please refer
+to our sister project in the Ruby-like language Crystal.
+
+Please refer to the following documents from the Crystal project for detailed
+information:
 
 - [Detailed README](https://github.com/Traven-B/mymodern/blob/main/project_docs/DETAILED_README.md) for **detailed installation instructions**, and subsequent setup and usage notes.
 - [Project Structure Documentation](https://github.com/Traven-B/mymodern/blob/main/project_docs/PROJECT_STRUCTURE.md) which outlines the specific parts you'll need to adapt or modify to work with your library's website.
