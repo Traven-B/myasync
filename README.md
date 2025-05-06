@@ -8,7 +8,49 @@ The program uses Ruby's concurrency support to handle multiple HTTP requests
 simultaneously. It is modular, allowing you to define modules for different
 library websites and customize the scraping logic for each.
 
-## Setting Up the Project
+## Usage
+
+The program works out of the box as a demo when given the --mock option.
+
+```sh
+app/myasync -h
+Usage: myasync [OPTIONS]
+Scrape pages at public libraries' web sites.
+    -m, --mock                       this option mocks everything
+    -s, --sleep-range 2,2.2          1 (or 2) comma separated numbers specifying
+                                     (range of) seconds that mocked requests sleep
+    -l, --local                      use server on localhost
+    -t, --trace                      trace where it's all happening
+    -h, --help, --usage              Show this message
+```
+
+Example program output:
+
+```sh
+Hennepin Books Out
+
+The Astronomer
+Tuesday December 04, 2018
+
+Subterranean Twin Cities
+Wednesday December 05, 2018
+Renewed: 1 time
+2 people waiting
+
+Hennepin Books on Hold
+
+A History of America in Ten Strikes
+Wednesday November 14, 2018
+
+St. Paul Books Out
+
+St. Paul Books on Hold
+
+The mysterious flame of Queen Loana
+Saturday November 17, 2018
+```
+
+## Installation
 
 1. **Clone the Repository**:
    ```bash
@@ -53,7 +95,7 @@ library websites and customize the scraping logic for each.
 
 ## Quick Start
 
-When you first run the program, use the `--mock` option.
+**When you first run the program, use the `--mock` option.**
 This lets you see example output immediately, even if you haven’t set up credentials,
 URLs, and scraping routines.
 
@@ -97,46 +139,6 @@ $ bundle exec app/myasync --local
 The --local option is for advanced development and concurrency testing, but
 like --mock, it also works out of the box.
 
-## Usage
-
-```sh
-app/myasync -h
-Usage: myasync [OPTIONS]
-Scrape pages at public libraries' web sites.
-    -m, --mock                       this option mocks everything
-    -s, --sleep-range 2,2.2          1 (or 2) comma separated numbers specifying
-                                     (range of) seconds that mocked requests sleep
-    -l, --local                      use server on localhost
-    -t, --trace                      trace where it's all happening
-    -h, --help, --usage              Show this message
-```
-
-Example program output:
-
-```sh
-Hennepin Books Out
-
-The Astronomer
-Tuesday December 04, 2018
-
-Subterranean Twin Cities
-Wednesday December 05, 2018
-Renewed: 1 time
-2 people waiting
-
-Hennepin Books on Hold
-
-A History of America in Ten Strikes
-Wednesday November 14, 2018
-
-St. Paul Books Out
-
-St. Paul Books on Hold
-
-The mysterious flame of Queen Loana
-Saturday November 17, 2018
-```
-
 ## Project Structure
 
 - `lib/`: Contains the main code using the Faraday HTTP gem - a more adaptable but involved implementation.
@@ -157,8 +159,8 @@ To choose which async implementation is active, use:
 
 ```
 
-./use_async_method_or_block.sh async_def    \# Use async/await version
-./use_async_method_or_block.sh Async_do     \# Use Async do ... end version
+./use_async_method_or_block.sh async_def    # Use async/await version
+./use_async_method_or_block.sh Async_do     # Use Async do ... end version
 
 ```
 
@@ -230,8 +232,8 @@ MODULE_NAMES = [Spingfield, Shelbyville]
 4. Test immediately:
 
 ```bash
-bundle exec app/mymodest --mock  # Uses your fixtures
-bundle exec lib/local_server.rb       # Serves them at localhost:3000/seattle/...
+bundle exec app/mymodest --mock    # Uses your fixtures
+bundle exec lib/local_server.rb    # Serves them at localhost:3000/seattle/...
 ```
 
 For more information on how to customize this code for your use, please refer
