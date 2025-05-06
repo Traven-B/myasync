@@ -220,7 +220,7 @@ MODULE_NAMES = [Spingfield, Shelbyville]
 
 Automatic Discovery: The program automatically discovers which library modules
 to use, their URLs, and related configuration. Just define your modules and add
-them to MODULE_NAMES-no manual wiring or hardcoded lists needed.
+them to MODULE_NAMES - no manual wiring or hardcoded lists needed.
 
 Minimal Configuration: Each module provides its own URLs and fixture filenames
 via its lib_data method. The main program and local server use this info
