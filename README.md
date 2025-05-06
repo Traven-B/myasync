@@ -218,9 +218,26 @@ MODULE_NAMES = [Spingfield, Shelbyville]
 
 ### How Discovery Works
 
-- The **`--mock` option** automatically uses your fixture files without HTTP requests.
-- The **`--local` server** dynamically maps URLs from all modules in `MODULE_NAMES` to serve their fixtures.
-- No manual URL configuration is needed - the code handles it via `lib_data` in each module.
+Automatic Discovery: The program automatically discovers which library modules
+to use, their URLs, and related configuration. Just define your modules and add
+them to MODULE_NAMES-no manual wiring or hardcoded lists needed.
+
+Minimal Configuration: Each module provides its own URLs and fixture filenames
+via its lib_data method. The main program and local server use this info
+directly, so you don’t need to configure URLs or file paths elsewhere.
+
+Mock Mode: The --mock option automatically uses your fixture HTML files for all
+intercepted network requests, with no need for real HTTP calls.
+
+Local Server: The local_server.rb script dynamically maps URLs from all modules
+in MODULE_NAMES to serve their corresponding  fixture files for development and
+concurrency testing. No manual URL setup is required - the server reads
+everything it needs from your modules.
+
+In short: Whether running in normal, mock, or local server mode, the program
+“just works” as long as your modules and fixtures are in place. Add a new
+library module, list it in MODULE_NAMES, and both the CLI and local server will
+pick it up automatically.
 
 ---
 
