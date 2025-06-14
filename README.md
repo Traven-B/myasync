@@ -243,7 +243,7 @@ pick it up automatically.
 
 ### Example Workflow for a New Library
 
-1. Define `lib/libraries/seattle.rb` with parsing logic.
+1. Define `lib/seattle.rb` with parsing logic and library data methods.
 2. Add `Seattle` to `MODULE_NAMES`.
 3. Add `seattle_checked_out.html`, `seattle_on_hold.html` to `mock_data/html_pages/`.
 4. Test immediately:
