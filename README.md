@@ -8,6 +8,8 @@ The program uses Ruby's concurrency support to handle multiple HTTP requests
 simultaneously. It is modular, allowing you to define modules for different
 library websites and customize the scraping logic for each.
 
+Will this work on a Web 2.0 site? See [this note](#note) below.
+
 ## Usage
 
 The program works out of the box as a demo when given the --mock option.
@@ -215,6 +217,26 @@ MODULE_NAMES = [Spingfield, Shelbyville]
 ```
 
 3. **Add fixture HTML files** to `mock_data/html_pages/` (e.g., `springfield_checked_out.html`).
+
+#### Note
+
+The easiest way to obtain fixture files is to use your browser’s "View Page
+Source" feature. Right-click on the page, select "View Page Source," then
+select all, copy, and paste the raw HTML text into your fixture file. Avoid
+using "File > Save Page As" on the rendered page to prevent including
+extraneous resources or dynamic content.
+
+Before writing parsing logic, verify that your saved fixture contains the
+expected data (e.g., book titles). If it does not, see the
+[Detailed README](https://github.com/Traven-B/mymodern/blob/main/project_docs/DETAILED_README.md)
+of the sister Crystal project for more guidance on creating fixtures and ensuring
+your scraping program will work.
+
+Many Web 2.0 sites will work fine with this approach, especially if the needed
+data is included in the initial static HTML returned by the server. If the
+expected text is missing, you might find alternative URLs such as
+print-friendly pages or older versions of the website that provide static HTML
+data suitable for scraping.
 
 ### How Discovery Works
 
